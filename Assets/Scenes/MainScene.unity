@@ -198,7 +198,7 @@ Prefab:
     - target: {fileID: 20000013469000644, guid: 042142d01b081ab4ca555ec74a04c2cb,
         type: 2}
       propertyPath: m_HDR
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114000010313761880, guid: 042142d01b081ab4ca555ec74a04c2cb,
         type: 2}
@@ -258,12 +258,22 @@ Prefab:
     - target: {fileID: 20000013469000644, guid: 042142d01b081ab4ca555ec74a04c2cb,
         type: 2}
       propertyPath: m_AllowMSAA
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 20000013469000644, guid: 042142d01b081ab4ca555ec74a04c2cb,
         type: 2}
       propertyPath: m_TargetDisplay
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010313761880, guid: 042142d01b081ab4ca555ec74a04c2cb,
+        type: 2}
+      propertyPath: skipAutoCalibrationCheck
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010313761880, guid: 042142d01b081ab4ca555ec74a04c2cb,
+        type: 2}
+      propertyPath: gaze
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 042142d01b081ab4ca555ec74a04c2cb, type: 2}

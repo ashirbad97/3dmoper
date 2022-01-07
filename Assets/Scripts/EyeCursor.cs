@@ -26,6 +26,7 @@ public class EyeCursor : MonoBehaviour
         //FoveInterface.EyeRays rays = foveInterface.GetGazeRays(); //Get a set of Unity Ray objects which describe where in the scene each of the user's eyes are looking.
         FoveInterfaceBase.GazeConvergenceData gazeData = FoveInterface.GetGazeConvergence();
         transform.position = gazeData.ray.GetPoint(gazeData.distance) * 100;
+        Debug.Log(transform.position);
         //Debug.Log("Gaze position:" + transform.position + " accuracy:" + gazeData.accuracy);
         //FoveInterface.EyeRays rays = FoveInterface.GetEyeRays(); 
         // TODO: calculate the convergence point in FoveInterface

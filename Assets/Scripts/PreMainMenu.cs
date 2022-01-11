@@ -11,12 +11,12 @@ public class PreMainMenu : MonoBehaviour {
 
     public GameObject playerInputUID;
     public static string playerUID;
-    const string apiEndpoint = "https://my-json-server.typicode.com/typicode/demo/posts";
+    const string apiEndpoint = "http://192.168.225.193:3000/api/checkUser";
     public void mainMenu()
     {
         playerUID = playerInputUID.GetComponent<TMPro.TextMeshProUGUI>().text;
-        Debug.Log(playerUID);
-        StartCoroutine(ProcessRequest(apiEndpoint));
+        subjectData.subjectuid = playerUID;
+        StartCoroutine(ProcessRequest(apiEndpoint, subjectData.subjectuid));
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
     public void QuitGame()
@@ -24,10 +24,12 @@ public class PreMainMenu : MonoBehaviour {
         Debug.Log("Application has been quit");
         Application.Quit();
     }
-    private IEnumerator ProcessRequest(string uri)
+    private IEnumerator ProcessRequest(string uri, string SubjectUid)
     {
-        Debug.Log("Start send request to API");
-        using (UnityWebRequest request = UnityWebRequest.Get(uri))
+        WWWForm form = new WWWForm();
+        form.AddField("uid", SubjectUid);
+
+        using (UnityWebRequest request = UnityWebRequest.Post(uri, form))
         {
             yield return request.SendWebRequest();
             if (request.isNetworkError || request.isHttpError)

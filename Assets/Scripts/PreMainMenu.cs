@@ -9,14 +9,13 @@ using UnityEngine.Networking;
 
 public class PreMainMenu : MonoBehaviour {
 
-    public GameObject playerInputUID;
     public static string playerUID;
+    public TMP_InputField subjectUID; 
     const string apiEndpoint = "http://192.168.225.193:3000/api/checkUser";
     public void mainMenu()
     {
-        playerUID = playerInputUID.GetComponent<TMPro.TextMeshProUGUI>().text;
-        subjectData.subjectuid = playerUID;
-        StartCoroutine(ProcessRequest(apiEndpoint, subjectData.subjectuid));
+        playerUID = subjectUID.text;
+        StartCoroutine(ProcessRequest(apiEndpoint, playerUID));
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
     public void QuitGame()
@@ -26,6 +25,7 @@ public class PreMainMenu : MonoBehaviour {
     }
     private IEnumerator ProcessRequest(string uri, string SubjectUid)
     {
+
         WWWForm form = new WWWForm();
         form.AddField("uid", SubjectUid);
 

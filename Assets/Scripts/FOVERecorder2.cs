@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using UnityEngine;
+using UnityEditor;
 
 // A behaviour class which records eye gaze data (with floating-point timestamps) and writes it out to a .csv file
 // for continued processing.
@@ -102,8 +103,26 @@ public class FOVERecorder2 : MonoBehaviour
     private Thread writeThread;
 
     // Use this for initialization.
+    string subjectFolderSubPath = Path.Combine("trialOutput", subjectData.subjectuid);
     void Start()
     {
+        string currentPath = Application.dataPath;
+        Debug.Log("Current Path is : " + currentPath);
+        string subjectFolderPath = Path.Combine(currentPath, subjectFolderSubPath);
+        Debug.Log("Expected Result Folder is " + subjectFolderPath);
+        bool ifFolderExist = Directory.Exists(subjectFolderPath);
+
+        if (ifFolderExist)
+        {
+            Debug.Log("The Folder Exist");
+        }
+        else
+        {
+            Debug.Log("The Folder Does Not Exist, Creating Directory");
+            Directory.CreateDirectory(subjectFolderPath);
+        }
+        Debug.Log("SubjectId is : "+ subjectData.subjectuid);
+        Debug.Break();
         startTime = Time.time;
         // Check to make sure that the FOVE interface variable is assigned. This prevents a ton of errors
         // from filling your log if you forget to assign the interface through the inspector.
@@ -134,7 +153,6 @@ public class FOVERecorder2 : MonoBehaviour
             fileName = testFileName;
 
             Debug.Log("Writing data to " + fileName);
-            Debug.Log(PreMainMenu.playerUID);
         }
 
         try
@@ -147,7 +165,7 @@ public class FOVERecorder2 : MonoBehaviour
             //                            "eyeGaze normdirection x,eyeGaze normdirection y,eyeGaze normdirection z," +
             //                            "eyeGaze convergdistance," + "eyeGaze convergence accuracy,"+ 
             //                            "eyePos3D x,eyePos3D y,eyePos3D z\n");
-
+            //Debug.Log("SubjectId is : ", subjectData.subjectuid);
             File.WriteAllText(fileName, "frameTime," +
                                         "leftGaze direction x,leftGaze direction y,leftGaze direction z," +
                                         "rightGaze direction x,rightGaze direction y,rightGaze direction z," +

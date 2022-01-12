@@ -8,15 +8,14 @@ using System.Collections;
 using UnityEngine.Networking;
 
 public class PreMainMenu : MonoBehaviour {
-
+    public apiServerPayload fetchedPayload;
     string responseOkMsg = "Subject Found";
-    public static string playerUID;
     public TMP_InputField subjectUID; 
     const string apiEndpoint = "http://192.168.225.193:3000/api/checkUser";
     public void mainMenu()
     {
-        playerUID = subjectUID.text;
-        StartCoroutine(ProcessRequest(apiEndpoint, playerUID));
+        subjectData.subjectuid = subjectUID.text;
+        StartCoroutine(ProcessRequest(apiEndpoint, subjectData.subjectuid));
     }
     public void QuitGame()
     {
@@ -41,22 +40,25 @@ public class PreMainMenu : MonoBehaviour {
             {
                 Debug.Log(request.downloadHandler.text);
                 Debug.Log(request.responseCode);
-                if(request.responseCode == 200)
-                {
-                    if(request.downloadHandler.text == responseOkMsg)
-                    {
-                        Debug.Log("User Found, Starting Trials");
-                        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-                    }
-                    else
-                    {
-                        Debug.Log("Status 200, But User Not Found");
-                    }                   
-                }
-                else
-                {
-                    Debug.Log("User Not Found, add User and try again");
-                }
+                fetchedPayload = apiServerPayload.createFromJson(request.downloadHandler.text);
+                subjectData.sessionId = fetchedPayload.sessionId;
+                Debug.Log(subjectData.sessionId);
+                //if(request.responseCode == 200)
+                //{
+                //    if(request.downloadHandler.text == responseOkMsg)
+                //    {
+                //        Debug.Log("User Found, Starting Trials");
+                //        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                //    }
+                //    else
+                //    {
+                //        Debug.Log("Status 200, But User Not Found");
+                //    }                   
+                //}
+                //else
+                //{
+                //    Debug.Log("User Not Found, add User and try again");
+                //}
             }           
         }
     }

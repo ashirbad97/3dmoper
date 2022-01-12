@@ -11,17 +11,14 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkProfile></TargetFrameworkProfile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectGenerator>VSTU</UnityProjectGenerator>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.4.40f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
@@ -268,6 +265,7 @@
     <Compile Include="Assets\FoveUnityPlugin\Source\Behaviours\FoveInterfaceBase.cs" />
     <Compile Include="Assets\FoveUnityPlugin\Source\Behaviours\FoveUnityUtils.cs" />
     <Compile Include="Assets\FoveUnityPlugin\Source\ScriptableObjects\FoveSettings.cs" />
+    <Compile Include="Assets\Scripts\apiServerPayload.cs" />
     <Compile Include="Assets\Scripts\DelayAttach.cs" />
     <Compile Include="Assets\Scripts\ExampleClass.cs" />
     <Compile Include="Assets\Scripts\EyeCursor.cs" />
@@ -287,6 +285,7 @@
     <Compile Include="Assets\Scripts\ReadXY.cs" />
     <Compile Include="Assets\Scripts\RizCalibSequence.cs" />
     <Compile Include="Assets\Scripts\RizNoise.cs" />
+    <Compile Include="Assets\Scripts\subjectData.cs" />
     <Compile Include="Assets\Scripts\TextureCreatorRiz.cs" />
     <Compile Include="Assets\Scripts\timerTwo.cs" />
     <Compile Include="Assets\Scripts\VisionRaycast.cs" />

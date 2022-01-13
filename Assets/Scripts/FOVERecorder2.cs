@@ -5,11 +5,12 @@ using System.IO;
 using System.Threading;
 using UnityEngine;
 using UnityEditor;
-
+using UnityEngine.SceneManagement;
 // A behaviour class which records eye gaze data (with floating-point timestamps) and writes it out to a .csv file
 // for continued processing.
 public class FOVERecorder2 : MonoBehaviour
 {
+    public subjectData currentSubject;
     // Require a reference (assigned via the Unity Inspector panel) to a FoveInterfaceBase object.
     // This could be either FoveInterface or FoveInterface2.
     [Tooltip("This should be a reference to any FoveInterface or FoveInterface2 object in the scene.")]
@@ -24,9 +25,9 @@ public class FOVERecorder2 : MonoBehaviour
     public uint writeAtDataCount = 1400;
 
     // The name of the file to write our results into
-    [Tooltip("The base name of the file. Don't add any extensions, as \".csv\" will be appended to whatever you put " +
-             "here.")]
-    public string fileName = "fove_recorded_results_v2_1";
+    //[Tooltip("The base name of the file. Don't add any extensions, as \".csv\" will be appended to whatever you put " +
+      //       "here.")]
+    //public string fileName = "fove_recorded_results_v2_1";
 
     // Check this to overwrite existing data files rather than incrementing a value each time.
     [Tooltip("If the specified filename already exists, the recorder will increment a counter until an unused " +
@@ -103,15 +104,26 @@ public class FOVERecorder2 : MonoBehaviour
     private Thread writeThread;
 
     // Use this for initialization.
+    string subjectFolderPath;
+    string sessionId = subjectData.sessionId.ToString();
     string subjectFolderSubPath = Path.Combine("trialOutput", subjectData.subjectuid);
+    public string fileName;
+    public string exitSceneName;
     void Start()
     {
+        exitSceneName = "PreMainMenu";
+        Debug.Log(PlayerPrefs.GetInt("counter"));
+        Debug.Break();
+        //Proposed New File Format [subjectUID_sessionID_trialCounter]
+        fileName = subjectData.subjectuid + "_" + subjectData.sessionId + "_";
+        Debug.Log("Session ID is : " + sessionId);
         string currentPath = Application.dataPath;
         Debug.Log("Current Path is : " + currentPath);
-        string subjectFolderPath = Path.Combine(currentPath, subjectFolderSubPath);
+        string subjectFolderPathWithSessionId = Path.Combine(subjectFolderSubPath,sessionId);
+        subjectFolderPath = Path.Combine(currentPath, subjectFolderPathWithSessionId);
         Debug.Log("Expected Result Folder is " + subjectFolderPath);
+        Debug.Break();
         bool ifFolderExist = Directory.Exists(subjectFolderPath);
-
         if (ifFolderExist)
         {
             Debug.Log("The Folder Exist");
@@ -122,7 +134,7 @@ public class FOVERecorder2 : MonoBehaviour
             Directory.CreateDirectory(subjectFolderPath);
         }
         Debug.Log("SubjectId is : "+ subjectData.subjectuid);
-        Debug.Break();
+        //Debug.Break();
         startTime = Time.time;
         // Check to make sure that the FOVE interface variable is assigned. This prevents a ton of errors
         // from filling your log if you forget to assign the interface through the inspector.
@@ -141,18 +153,20 @@ public class FOVERecorder2 : MonoBehaviour
 
         // If overwrite is not set, then we need to make sure our selected file name is valid before proceeding.
         {
-            string testFileName = fileName + ".csv";
-            if (!overwriteExistingFile)
+            int counter = PlayerPrefs.GetInt("counter");
+            Debug.Log("Current counter is " + counter);
+            if(counter == 7)
             {
-                int counter = 1;
-                while (File.Exists(testFileName))
-                {
-                    testFileName = fileName + "_" + (counter++) + ".csv"; // e.g., "results_12.csv"
-                }
+                Debug.Log("Finished all trials, show exit");
+                SceneManager.LoadScene(exitSceneName);
             }
-            fileName = testFileName;
-
-            Debug.Log("Writing data to " + fileName);
+            fileName = fileName + counter;
+            fileName = Path.Combine(subjectFolderPath, fileName);
+            fileName = fileName + ".csv";
+            Debug.Log("Full FileName is : " + fileName);
+            counter += 1;
+            Debug.Log("New counter is : " + counter);
+            PlayerPrefs.SetInt("counter", counter);
         }
 
         try

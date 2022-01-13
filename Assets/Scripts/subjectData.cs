@@ -6,4 +6,5 @@ public class subjectData
 {
     public static string subjectuid;
     public static int sessionId;
+    public int trialCounter = 0;
 }

@@ -7,7 +7,6 @@
  %disp(results_path)
 %% Bunch of Switches
     write_Table_On = 0;
-    
 %%
 function foverecordedresultsv2114 = import_eyedata(filename, dataLines)
 %IMPORTFILE Import data from a text file

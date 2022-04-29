@@ -5,6 +5,9 @@ using UnityEngine;
 public class subjectData
 {
     public static string subjectuid;
+    public static string fileUploadEndpoint;
     public static int sessionId;
+    public static string subjectFilePath;
+    public static string subjectFolder;
     public int trialCounter = 0;
 }

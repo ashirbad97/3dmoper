@@ -32,6 +32,11 @@ public class Modified_RandomMotion2 : MonoBehaviour
         {
             //Debug.Log("I am in else condition");
             ReadXY.trialNumber = ReadXY.trialNumber + 1;
+            if (ReadXY.trialNumber == 7)
+            {
+                Debug.Log("Finished all trials, show exit");
+                SceneManager.LoadScene(5);
+            }
             SceneManager.LoadScene("Menu", LoadSceneMode.Additive);
             SceneManager.UnloadSceneAsync("Stimulus");
         }

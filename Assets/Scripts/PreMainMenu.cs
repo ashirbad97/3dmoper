@@ -8,15 +8,21 @@ using System.Collections;
 using UnityEngine.Networking;
 
 public class PreMainMenu : MonoBehaviour {
-    public static string jioFiEndpoint = "http://192.168.225.193:3000/api/checkUser";
-    public static string iitdWifiEndPoint = "http://10.194.127.140:3000/api/checkUser";
+    //Endpoints only for debugging purposes
+    //public static string jioFiEndpoint = "http://192.168.225.193:3000/api/checkUser";
+    //public static string iitdWifiEndPoint = "http://10.17.6.83:3000/api/checkUser";
+    public string fileUploadEndPoint;
+    public string apiEndpoint;
     public apiServerPayload fetchedPayload;
     string responseOkMsg = "Subject Found";
     public TMP_InputField subjectUID;
-    public string apiEndpoint = iitdWifiEndPoint;
+    public GameObject uiCanvas;
     public void mainMenu()
     {
+        subjectData.fileUploadEndpoint = fileUploadEndPoint;
         subjectData.subjectuid = subjectUID.text;
+        Debug.Log("User Search :  "+subjectData.subjectuid);
+        Debug.Log("Endpoint is "+ apiEndpoint);
         StartCoroutine(ProcessRequest(apiEndpoint, subjectData.subjectuid));
     }
     public void QuitGame()
@@ -35,8 +41,7 @@ public class PreMainMenu : MonoBehaviour {
             yield return request.SendWebRequest();
             if (request.isNetworkError || request.isHttpError)
             {
-                Debug.Log("Error is : " + request.error);
-                Debug.Log("User Not Found, add User and try again");
+                Debug.Log("Network Error is: " + request.error);
             }
             else
             {
@@ -49,7 +54,12 @@ public class PreMainMenu : MonoBehaviour {
                         subjectData.sessionId = fetchedPayload.sessionId;
                         Debug.Log(subjectData.sessionId);
                         PlayerPrefs.SetInt("counter", 1);
-                        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                        //Loads the scene with black ball
+                        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                        // Disable the UI Canvas
+                        uiCanvas.SetActive(false);
+                        // Instead of just loading the scene, load it additively
+                        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1,LoadSceneMode.Additive);
                 }
                 else
                 {

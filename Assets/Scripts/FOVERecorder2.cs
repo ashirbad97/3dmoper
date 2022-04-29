@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using UnityEngine;
-using UnityEditor;
+//using UnityEditor;
 using UnityEngine.SceneManagement;
 // A behaviour class which records eye gaze data (with floating-point timestamps) and writes it out to a .csv file
 // for continued processing.
@@ -108,12 +108,11 @@ public class FOVERecorder2 : MonoBehaviour
     string sessionId = subjectData.sessionId.ToString();
     string subjectFolderSubPath = Path.Combine("trialOutput", subjectData.subjectuid);
     public string fileName;
-    public string exitSceneName;
+    public string[] exitScene;
     void Start()
     {
-        exitSceneName = "PreMainMenu";
         Debug.Log(PlayerPrefs.GetInt("counter"));
-        Debug.Break();
+        //Debug.Break();
         //Proposed New File Format [subjectUID_sessionID_trialCounter]
         fileName = subjectData.subjectuid + "_" + subjectData.sessionId + "_";
         Debug.Log("Session ID is : " + sessionId);
@@ -121,8 +120,10 @@ public class FOVERecorder2 : MonoBehaviour
         Debug.Log("Current Path is : " + currentPath);
         string subjectFolderPathWithSessionId = Path.Combine(subjectFolderSubPath,sessionId);
         subjectFolderPath = Path.Combine(currentPath, subjectFolderPathWithSessionId);
+        subjectData.subjectFilePath = subjectFolderPath;
+        subjectData.subjectFolder = subjectFolderPathWithSessionId;
         Debug.Log("Expected Result Folder is " + subjectFolderPath);
-        Debug.Break();
+        //Debug.Break();
         bool ifFolderExist = Directory.Exists(subjectFolderPath);
         if (ifFolderExist)
         {
@@ -155,11 +156,13 @@ public class FOVERecorder2 : MonoBehaviour
         {
             int counter = PlayerPrefs.GetInt("counter");
             Debug.Log("Current counter is " + counter);
-            if(counter == 7)
-            {
-                Debug.Log("Finished all trials, show exit");
-                SceneManager.LoadScene(exitSceneName);
-            }
+            //Debug.Break();
+            // BUG, this might be running async, creates headers for file 7
+            //if(counter == 7)
+            //{
+            //    Debug.Log("Finished all trials, show exit");
+            //    SceneManager.LoadScene(0);
+            //}
             fileName = fileName + counter;
             fileName = Path.Combine(subjectFolderPath, fileName);
             fileName = fileName + ".csv";

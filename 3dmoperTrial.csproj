@@ -269,6 +269,7 @@
     <Compile Include="Assets\Scripts\DelayAttach.cs" />
     <Compile Include="Assets\Scripts\ExampleClass.cs" />
     <Compile Include="Assets\Scripts\EyeCursor.cs" />
+    <Compile Include="Assets\Scripts\FileUploadControler.cs" />
     <Compile Include="Assets\Scripts\FOVERecorder2.cs" />
     <Compile Include="Assets\Scripts\FPSDisplay.cs" />
     <Compile Include="Assets\Scripts\LookAtObject.cs" />

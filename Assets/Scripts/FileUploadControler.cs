@@ -24,14 +24,14 @@ public class FileUploadControler : MonoBehaviour {
         subjectFolderPath = subjectData.subjectFilePath;
         uploadEndpoint = subjectData.fileUploadEndpoint;
         //Changing the label to show user information
-        userInfoLabel.text = "Subject UID is: "+subjectData.subjectuid+" Session ID is: "+subjectData.sessionId;
+        userInfoLabel.text = "Subject UID is: "+subjectData.subjectuid+"\n Session ID is: "+subjectData.sessionId;
         Debug.Log("In Exit Scene");
         Debug.Log("Subject Folder Path " + subjectFolderPath);
         Debug.Log("Subject Upload Endpoint " + uploadEndpoint);
         Debug.Break();
         UploadFiles();
 	}
-    public void UploadFiles()
+    public void UploadFiles() 
     {
         Debug.Log("Will Upload " + subjectFolderPath + " to " + uploadEndpoint);
         DirectoryInfo currentDir = new DirectoryInfo(subjectFolderPath);

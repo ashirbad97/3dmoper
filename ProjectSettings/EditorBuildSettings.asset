@@ -20,3 +20,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Calibration.unity
     guid: 5ed1cdc1c14c44f468b0dae50badfeef
+  - enabled: 1
+    path: Assets/Scenes/UploadAndQuit.unity
+    guid: 4fb0abd53cb512e46b759bface6eeef7
